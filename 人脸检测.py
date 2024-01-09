@@ -4,7 +4,7 @@ import cv2 as cv
 face_cascade = cv.CascadeClassifier(
     cv.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
-cap = cv.VideoCapture(0)
+cap = cv.VideoCapture(0, cv.CAP_DSHOW)
 while (cap.isOpened()):
     # 读取图像
     ret, image = cap.read()
