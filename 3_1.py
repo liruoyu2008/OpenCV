@@ -32,4 +32,4 @@ def func2():
 
 
 if __name__=="__main__":
-    func2()
+    func1()
