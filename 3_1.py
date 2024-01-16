@@ -3,7 +3,7 @@ import cv2 as cv
 
 
 def func1():
-    img = cv.imread("1.jpg")
+    img = cv.imread("./images/1.jpg")
     b, g, r = cv.split(img)
     b[:] = 0
     g[:] = 0

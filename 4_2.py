@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 
 def func1():
     '''缩放'''
-    img = cv.imread('Lenna.jpg')
+    img = cv.imread('./images/Lenna.jpg')
     res = cv.resize(img, None, fx=0.5, fy=0.5, interpolation=cv.INTER_CUBIC)
     cv.imshow("raw", img)
     cv.imshow("red", res)
@@ -14,7 +14,7 @@ def func1():
 
 def func2():
     '''旋转'''
-    img = cv.imread('Lenna.jpg', 0)
+    img = cv.imread('./images/Lenna.jpg', 0)
     rows, cols = img.shape
     # 生成仿射矩阵，cols-1 和 rows-1 是坐标限制
     M = cv.getRotationMatrix2D(((cols-1)/2.0, (rows-1)/2.0), 90, 0.5)
@@ -26,7 +26,7 @@ def func2():
 
 def func3():
     '''仿射变换（三角形映射法）'''
-    img = cv.imread('Lenna.jpg')
+    img = cv.imread('./images/Lenna.jpg')
     rows, cols, ch = img.shape
     # 一般可选取图像的角点作锚点
     pts1 = np.float32([[50, 50], [200, 50], [50, 200]])
@@ -41,7 +41,7 @@ def func3():
 
 def func4():
     '''仿射变换（变换矩阵法）'''
-    img = cv.imread('Lenna.jpg')
+    img = cv.imread('./images/Lenna.jpg')
     rows, cols, ch = img.shape
     # 绕原点（左上角点）向角度正方向（与笛卡尔逆时针方向不同的是，由于y轴朝下，opencv2D图形是顺时针）旋转60度，然后向x、y正方向分别移动200、30
     M = np.array([[np.cos(np.pi/3),np.sin(-np.pi/3),200],[np.sin(np.pi/3),np.cos(np.pi/3),30]])
@@ -55,7 +55,7 @@ def func4():
 
 def func5():
     '''透视变换（四边形映射法）'''
-    img = cv.imread('Lenna.jpg')
+    img = cv.imread('./images/Lenna.jpg')
     rows, cols, ch = img.shape
     # 选取图像的角点作锚点
     pts1 = np.float32([[0, 0], [300, 0], [0, 300], [300, 300]])

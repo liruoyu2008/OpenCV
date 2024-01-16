@@ -3,8 +3,8 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 
 # 加载两张图片
-img1 = cv.imread('1.jpg')
-img2 = cv.imread('2.jpg')
+img1 = cv.imread('./images/1.jpg')
+img2 = cv.imread('./images/2.jpg')
 img3 = img1[0:900, -1000:, :]
 img4 = img2[0:900, -1000:, :]
 i = 0
