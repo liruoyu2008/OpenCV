@@ -6,34 +6,34 @@ from matplotlib import pyplot as plt
 
 
 def some_filter():
-    img = plt.imread('1.jpg')
+    img = plt.imread('./images/1.jpg')
     # img = cv.cvtColor(cv.imread("1.jpg"), cv.COLOR_BGR2RGB)
 
-    # 均值滤波
+    # 均值滤波(权重和为1，因此是基于图像进行微调)
     mean_kernel = np.array((
-        [0.0625, 0.125, 0.0625],
-        [0.125, 0.25, 0.125],
-        [0.0625, 0.125, 0.0625]), dtype=np.float32)
+        [0.111, 0.111, 0.111],
+        [0.111, 0.111, 0.111],
+        [0.111, 0.111, 0.111]), dtype=np.float32)
     mean_dst = cv.filter2D(img, -1, mean_kernel)
 
-    # sobel_buttom滤波
+    # sobel_buttom滤波（凸显横向梯度变化。权重之和为0，因此是为了展示图像变化而抹除不变）
     sobel1_kernel = np.array((
         [-1, -2, -1],
         [0, 0, 0],
         [1, 2, 1]), dtype=np.float32)
     sobel1_dst = cv.filter2D(img, -1, sobel1_kernel)
 
-    # sobel_left滤波
+    # sobel_left滤波（凸显垂直梯度变化）
     sobel2_kernel = np.array((
         [1, 0, -1],
         [2, 0, -2],
         [1, 0, -1]), dtype=np.float32)
     sobel2_dst = cv.filter2D(img, -1, sobel2_kernel)
 
-    # emboss浮雕滤波
+    # emboss浮雕滤波（凸显横、纵、右斜梯度变化）
     emboss_kernel = np.array((
         [-2, -1, 0],
-        [-1, 1, 1],
+        [-1, 0, 1],
         [0, 1, 2]), dtype=np.float32)
     emboss_dst = cv.filter2D(img, -1, emboss_kernel)
 
@@ -58,7 +58,7 @@ def some_filter():
         [0, 2, 0]), dtype=np.float32)
     laplacian_dst = cv.filter2D(img, -1, laplacian_kernel)
 
-    # identity分身滤波
+    # identity分身滤波（克隆）
     identity_kernel = np.array((
         [0, 0, 0],
         [0, 1, 0],
