@@ -1,5 +1,6 @@
 import cv2 as cv
 from video_cap import VideoCap
+import numpy as np
 
 
 class faceDetect(VideoCap):
@@ -14,7 +15,7 @@ class faceDetect(VideoCap):
         # 进行面部检测
         faces = self.face_cascade.detectMultiScale(
             gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-
+        
         # 在检测到的面部周围画矩形框
         for (x, y, w, h) in faces:
             cv.rectangle(image, (x, y), (x+w, y+h), (255, 0, 0), 2)
