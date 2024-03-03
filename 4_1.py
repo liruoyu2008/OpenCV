@@ -13,7 +13,7 @@ while (1):
     # 色环0-180对应红、黄、绿、青、蓝、品，色调黄在15-45左右，饱和度要求较高（颜色纯度），亮度无要求
     lower_blue = np.array([15,180,0])
     upper_blue = np.array([45,255,255])
-    # 设置HSV的阈值使得只取蓝色
+    # 设置HSV的阈值使得只取黄色
     mask = cv.inRange(hsv, lower_blue, upper_blue)
     # 将掩膜和图像逐像素相加
     res = np.zeros(frame.shape)

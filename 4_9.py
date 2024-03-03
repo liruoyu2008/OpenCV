@@ -54,11 +54,13 @@ box = np.int0(box)  # int0是平台整数（Platform Integer）,所以此处实�
 # box = np.int64(box)
 graph_img = cv.drawContours(graph_img, [box], 0, (0, 150, 0), 2)    # 由于最小外接矩形是经过旋转的矩形，`因此不能用cv.rectangle绘制，而因该作为轮廓绘制cv.drawcontour
 circle = cv.minEnclosingCircle(cont)
+ellipse = cv.fitEllipse(cont)
 triangle = cv.minEnclosingTriangle(cont)
 point = tuple(int(x) for x in circle[0])
 cv.circle(graph_img, point, int(circle[1]), (0, 0, 150), 2)
+cv.ellipse(graph_img, ellipse, (0, 255, 0), 2)
 cv.polylines(graph_img, [triangle[1].astype(np.int32)], True, (100, 100, 0), 2)
-# 将轮廓的DP抽稀结果画出
+# 将轮廓的DP（道格拉斯-普克抽稀算法）结果画出
 cont_approx_img_1 = raw.copy()
 cont_approx_img_2 = raw.copy()
 e1 = 0.1*area_C
