@@ -1,4 +1,4 @@
-'''模板匹配'''
+'''模板匹配（没有尺度不变性，对旋转和缩放太敏感）'''
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
