@@ -11,6 +11,7 @@ methods = ['cv.TM_CCOEFF', 'cv.TM_CCOEFF_NORMED', 'cv.TM_CCORR',
            'cv.TM_CCORR_NORMED', 'cv.TM_SQDIFF', 'cv.TM_SQDIFF_NORMED']
 for meth in methods:
     img = img2.copy()
+    # eval用于执行字符串代码，此处cv.XXXXX被执行，得到的就是对应的数值常量值
     method = eval(meth)
     # 应用模板匹配
     res = cv.matchTemplate(img, template, method)

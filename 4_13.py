@@ -1,4 +1,4 @@
-'''霍夫变换'''
+'''霍夫线变换'''
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
