@@ -1,4 +1,12 @@
 '''通过特征匹配+单应性，进行对象查找'''
+'''RANSAC单应性变换方法的主要步骤：
+1.随机选取：随机选取四对匹配点，计算透视变换矩阵。
+2.应用变换：使用这个矩阵将所有输入点变换到目标图像空间。
+3.计算一致性：计算多少点对的变换结果与其对应目标点足够接近（即距离小于某个阈值）。
+4.迭代重复：重复上述过程多次，每次保留产生最多一致点对的变换矩阵。
+5.使用最佳模型：使用找到的最佳变换矩阵，并可能使用所有被该模型认为是内点的点对，通过最小二乘法重新计算最终的透视变换矩阵以提高精度。
+综上。本质上，RANSAC方法是通过随机选取4个匹配进行透视变换的计算，然后通过多次迭代寻找这些变换中拟合的最好的结果。
+而所谓“内点”就是在对应的透视变换下，一致性值小于阈值的点，与之相反的就是“外点”'''
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
@@ -40,7 +48,7 @@ else:
     matchesMask = None
 draw_params = dict(matchColor = (0,255,0), # 绘制匹配
                    singlePointColor = None,
-                   matchesMask = matchesMask, # 绘制查询图像的轮廓线
+                   matchesMask = matchesMask, # 绘制轮廓
                    flags = 2)
 img3 = cv.drawMatches(img1,kp1,img2,kp2,good,None,**draw_params)
 plt.imshow(img3, 'gray'),plt.show()
