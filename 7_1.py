@@ -8,6 +8,7 @@ OpenCV中的cv.findChessboardCorners函数就是专门设计来自动寻找这�
 因为它的简单性、高效性以及在计算机视觉任务中的高度适用性。'''
 
 # 终止标准
+import os
 import numpy as np
 import cv2 as cv
 import glob
@@ -16,8 +17,8 @@ criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 # 标定
 # 假定以某个角落的内角点为原点选定坐标系，单元格长度为单位1，
 # 则这些标定的内角点为 (0,0,0), (1,0,0), (2,0,0) ....,(6,6,0),并将其网格化赋予到预设的3D坐标
-# 根据后面cv.drawChessboardCorners画出的点来看，cv.calibrateCamera会认为我的坐标系是以右下角的
-# 内角点为原点，x轴向左、y轴向上。
+# 根据后面cv.drawChessboardCorners画出的点来看，cv.calibrateCamera会认为我的坐标系是以右上角的
+# 内角点为原点，x轴向下、y轴向左。
 # 因此，自己选定的坐标系的原点位置、轴方向不重要、只要在选定坐标系后，保持objpoints与imgpoints
 # 一一对应，没有局部错乱即可。
 objp = np.zeros((7*7, 3), np.float32)
@@ -79,8 +80,13 @@ for fname in images:
 # tvecs: 每个视图的平移向量，表示对象相对于相机的平移。
 ret, mtx, dist, rvecs, tvecs = cv.calibrateCamera(objpoints, imgpoints, camera_size, None, None)
 
+# 保存相机参数到文件
+npz_fname = './data/camera_home.npz'
+if not os.path.exists(npz_fname):
+    np.savez(npz_fname, mtx=mtx, dist=dist, rvecs=rvecs, tvecs=tvecs)
+
 # 矫正
-img = cv.imread('./images/chessboard-01.jpg')
+img = cv.imread('./images/chessboard-02.jpg')
 h,  w = img.shape[:2]
 # 原mtx反映了相机的实际内参，但是依据此内参进行图像校正的话，得到的矫正后图像一般还需要经过适当调整(存在黑边之类）。
 # 而newCameraMatrix就是直接通过微调调整内参将“调整矫正后图像”这一步骤固化下来，后续通过newCameraMatrix进行矫正的
