@@ -1,3 +1,4 @@
+'''使用 Haar Cascades 进行人脸检测'''
 import cv2 as cv
 from video_cap import VideoCap
 import numpy as np
